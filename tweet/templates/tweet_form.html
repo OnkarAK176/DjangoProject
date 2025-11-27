@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Tweet{% endblock %}
+
+{% block content %}
+
+<h2 class="my-3">Create Tweet</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label">Tweet text</label>
+    {{ form.text }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Photo (Optional)</label>
+    {{ form.photo }}
+  </div>
+
+  <button type="submit" class="btn btn-success">Post</button>
+  <a href="{% url 'tweet_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}

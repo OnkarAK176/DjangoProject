@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}Tweet Feed{% endblock %}
+
+{% block content %}
+
+<h2 class="my-3">Latest Tweets</h2>
+
+<div class="text-end mb-3">
+    <a href="{% url 'tweet_create' %}" class="btn btn-primary">+ New Tweet</a>
+</div>
+
+{% for tweet in tweets %}
+<div style="border:1px solid #ccc; padding:10px; margin:10px;">
+    <p><strong>{{ tweet.user.username }}</strong> — {{ tweet.created_at }}</p>
+    <p>{{ tweet.text }}</p>
+
+    {% if tweet.photo %}
+        <img src="{{ tweet.photo.url }}" width="200px">
+    {% endif %}
+
+    <!-- Show Edit & Delete buttons ONLY if logged-in user owns the tweet -->
+    {% if request.user == tweet.user %}
+        <a href="{% url 'tweet_edit' tweet.id %}"> Edit</a> |
+        <a href="{% url 'tweet_delete' tweet.id %}" onclick="return confirm('Are you sure you want to delete this tweet?')">
+             Delete
+        </a>
+    {% endif %}
+</div>
+{% endfor %}
+
+
+{% endblock %}

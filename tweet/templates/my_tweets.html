@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}My Tweets{% endblock %}
+
+{% block content %}
+
+<h2 class="my-3">My Tweets</h2>
+
+{% if tweets %}
+    {% for item in tweets %}
+    <div class="card mb-3 p-3">
+
+        {% if item.photo %}
+            <img src="{{ item.photo.url }}" width="150" class="rounded mb-2">
+        {% endif %}
+
+        <p>{{ item.text }}</p>
+        <small class="text-muted">{{ item.created_at|date:"d M Y, H:i" }}</small>
+
+        <div>
+        <a href="{% url 'tweet_edit' item.id %}" class="btn btn-sm btn-primary mt-2">Edit</a>
+        <a href="{% url 'tweet_delete' item.id %}" onclick="return confirm('Delete tweet?')" class="btn btn-sm btn-danger mt-2">Delete</a>
+        </div>
+
+    </div>
+    {% endfor %}
+{% else %}
+<p class="text-muted">You have not posted any tweets yet.</p>
+{% endif %}
+
+{% endblock %}

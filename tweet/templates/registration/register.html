@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h2 class="my-4">Create an Account</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-success" type="submit">Sign Up</button>
+</form>
+{% endblock %}
